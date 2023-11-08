@@ -10,9 +10,12 @@ type Node struct {
 type LinkedList struct {
 	Head *Node
 	Tail *Node
+	Len  int
 }
 
 func (list *LinkedList) Append(data any) {
+	defer list.grow()
+
 	if list.Head == nil {
 		list.Head = &Node{Data: data}
 		return
@@ -49,28 +52,38 @@ func (list *LinkedList) Delete(data any) {
 	if current.Data == data {
 		list.Head = list.Head.Next
 	}
+
 	prev := current
 	for current != nil {
 		if current.Data == data {
 			prev.Next = current.Next
+			list.shrink()
 		}
 		prev = current
 		current = current.Next
 	}
 }
 
-func (list *LinkedList) Len() int {
-	if list.Head == nil {
-		return 0
-	}
-	n := 0
-	current := list.Head
-	for current != nil {
-		n++
-		current = current.Next
-	}
-	return n
+func (list *LinkedList) grow() {
+	list.Len += 1
 }
+
+func (list *LinkedList) shrink() {
+	list.Len -= 1
+}
+
+// func (list *LinkedList) Len() int {
+// 	if list.Head == nil {
+// 		return 0
+// 	}
+// 	n := 0
+// 	current := list.Head
+// 	for current != nil {
+// 		n++
+// 		current = current.Next
+// 	}
+// 	return n
+// }
 
 func (list *LinkedList) Index(n int) any {
 	if list.Head == nil {

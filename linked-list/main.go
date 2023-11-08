@@ -11,10 +11,10 @@ func main() {
 	l.Append("end")
 
 	l.Print()
-	fmt.Printf("len - %v\n", l.Len())
+	fmt.Printf("len - %v\n", l.Len)
 	l.Delete(1)
 	l.Print()
-	fmt.Printf("len - %v\n", l.Len())
+	fmt.Printf("len - %v\n", l.Len)
 	fmt.Println(l.Index(10))
 
 }
