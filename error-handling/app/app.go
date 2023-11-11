@@ -10,5 +10,7 @@ func Run() {
 	storage := storage.New()
 	usecase := usecase.New(storage)
 	handler := handlers.NewHandler(usecase)
-	handler.HandleRequest()
+	handler.HandleRequest()      // -> DoSomething(): failed to do something
+	handler.HandleRequestAgain() // -> couldn't handle error: failed to do something
+	// same logic but different errors
 }
